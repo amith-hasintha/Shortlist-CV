@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: shortlist-cv
+    env: python
+    buildCommand: |
+      python -m venv venv
+      . venv/bin/activate
+      pip install -r requirements.txt
+      python -m spacy download en_core_web_sm
+    startCommand: |
+      . venv/bin/activate
+      uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0 
