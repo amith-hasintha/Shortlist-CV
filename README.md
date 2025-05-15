@@ -1,93 +1,173 @@
 # CV Shortlisting Platform
 
-A secure and private CV shortlisting platform that uses private LLMs and MCPs for automated CV analysis and job description matching.
+An intelligent platform that analyzes CVs against job descriptions to help streamline the recruitment process. The system uses advanced NLP and machine learning techniques to provide detailed matching information.
 
 ## Features
 
-- Secure PDF CV parsing
-- Private LLM-based text processing
-- Vector-based similarity matching
-- Scoring system (0-100)
-- Privacy-focused architecture
-- Modern web interface
+- 📄 PDF CV parsing and analysis
+- 🔍 Job description matching
+- 🎯 Skill extraction and matching
+- 📊 Experience level detection
+- 🎓 Education qualification analysis
+- 💯 Overall match score calculation
+- 🎨 Modern, responsive UI
+- 🌐 Cloud deployment ready
 
 ## Tech Stack
 
+### Frontend
+- React with TypeScript
+- Material-UI for components
+- Axios for API calls
+- React Dropzone for file uploads
+- Deployed on Vercel
+
 ### Backend
 - FastAPI (Python)
-- Private LLM Integration
-- PDF Processing
-- Vector Database
-- Secure File Handling
+- spaCy for NLP
+- Sentence Transformers for text embeddings
+- PyPDF2 for PDF processing
+- Deployed on Render
 
-### Frontend
-- React
-- TypeScript
-- Material-UI
-- Axios
+## Prerequisites
 
-## Setup Instructions
-
-### Prerequisites
-- Python 3.8+
-- Node.js 16+
+- Python 3.9+
+- Node.js 14+
 - npm or yarn
-- Git
+
+## Local Development Setup
 
 ### Backend Setup
-1. Create a virtual environment:
+
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
+
+2. Create and activate virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-2. Install dependencies:
+3. Install dependencies:
 ```bash
-cd backend
 pip install -r requirements.txt
+python -m spacy download en_core_web_sm
 ```
 
-3. Set up environment variables:
+4. Start the backend server:
 ```bash
-cp .env.example .env
-# Edit .env with your configuration
+python app/main.py
 ```
 
-4. Run the backend:
-```bash
-uvicorn main:app --reload
-```
+The backend will be available at `http://localhost:8000`
 
 ### Frontend Setup
-1. Install dependencies:
+
+1. Navigate to the frontend directory:
 ```bash
 cd frontend
+```
+
+2. Install dependencies:
+```bash
 npm install
 ```
 
-2. Set up environment variables:
+3. Start the development server:
 ```bash
-cp .env.example .env.local
-# Edit .env.local with your configuration
+npm start
 ```
 
-3. Run the frontend:
-```bash
-npm run dev
+The frontend will be available at `http://localhost:3000`
+
+## Deployment
+
+### Backend Deployment (Render)
+
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Configure the service:
+   - Name: `shortlist-cv`
+   - Environment: `Python`
+   - Build Command: (from render.yaml)
+   - Start Command: (from render.yaml)
+
+### Frontend Deployment (Vercel)
+
+1. Create a new project on Vercel
+2. Import your GitHub repository
+3. Configure the project:
+   - Framework Preset: `Create React App`
+   - Root Directory: `frontend`
+
+## API Endpoints
+
+### POST /api/analyze
+Analyzes a CV against a job description.
+
+**Request:**
+- `cv`: PDF file (multipart/form-data)
+- `jd`: Job description text (form-data)
+
+**Response:**
+```json
+{
+  "score": 85.5,
+  "matching_skills": ["python", "react", "aws"],
+  "missing_skills": ["kubernetes", "docker"],
+  "experience": [
+    {
+      "years": "5",
+      "context": "5 years of experience in software development"
+    }
+  ],
+  "education": [
+    {
+      "degree": "bachelor",
+      "text": "Bachelor's degree in Computer Science"
+    }
+  ]
+}
 ```
 
-## Security Features
+## Project Structure
 
-- All CV processing is done locally
-- No third-party API calls for sensitive data
-- Secure file handling and storage
-- Private LLM integration
-- End-to-end encryption for data in transit
-
-## License
-
-MIT License
+```
+Shortlist-CV/
+├── backend/
+│   ├── app/
+│   │   └── main.py
+│   ├── requirements.txt
+│   ├── render.yaml
+│   └── venv/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── App.tsx
+│   │   └── ...
+│   ├── package.json
+│   └── vercel.json
+└── README.md
+```
 
 ## Contributing
 
-Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [spaCy](https://spacy.io/)
+- [Sentence Transformers](https://www.sbert.net/)
+- [Material-UI](https://mui.com/)
+- [React](https://reactjs.org/)
