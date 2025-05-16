@@ -16,6 +16,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "http://localhost:3001",
         "https://shortlist-cv.vercel.app",
         "https://*.vercel.app"
     ],
